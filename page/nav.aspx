@@ -44,6 +44,8 @@
 
     </style>
     <script type="text/javascript">
+        var indoorviewer;
+
         $(".nav > li > a").click(function () {
             $('#collapse').addClass("collapsed");
             $('#collapse').attr("aria-expanded", false);
@@ -53,11 +55,19 @@
 
         IV.loaded(function () {
             // Replace the base URL with the address of your IndoorViewer instance, and remember to get the API from the same instance
-            var indoorViewer = new IndoorViewer({
-                base_url: '//nstlab.cn:14610/iv.example'
+            indoorviewer = new IndoorViewer({
+                base_url: '//nstlab.cn:14610/iv.example',
+                onLoadComplete: function () {
+                    indoorviewer.addEventListener("poiSelected", function (data) { clickEventListener(data); });
+                }
             });
+            
         });
         
+        function clickEventListener(data) {
+            
+        }
+
         function getParameterString(url, name) {
             if (url.indexOf("?") != -1) {
                 var str = url.substr(url.indexOf("?") + 1);
